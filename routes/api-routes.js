@@ -60,7 +60,15 @@ router.put("/api/workouts/:id", (req, res) => {
 });
 
 router.get("/api/workouts/range", (req, res) => {
-    db.Workout.find({})
+    var days = 7; // Days you want to subtract
+    var date = new Date();
+    var last = new Date(date.getTime() - (days * 24 * 60 * 60 * 1000));
+    var day = last.getDate(); // Seven days ago
+    db.Workout.find({
+        day: {
+            $gte: day
+        }
+    })
     .populate("exercises")
     .then(data => {
         res.json(data);
