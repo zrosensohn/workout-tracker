@@ -45,8 +45,8 @@ router.put("/api/workouts/:id", (req, res) => {
             console.log(response);
             let filter = { _id: req.params.id };
             let update = { 
-                $push: { exercises: response._id },  
-                $inc: { totalDuration: response.duration}
+                $push: { exercises: response._id }  
+                // ,$inc: { totalDuration: response.duration}
             };
             db.Workout.findByIdAndUpdate(filter, update, { new: true })
                 .then(exercise => {
